@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://www.agdaily.com/wp-content/uploads/2018/09/bg-corn_field-001-naramit.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Blur Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: -1;
+        }
+
+        /* Header and Footer */
+        header, footer {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .logo {
+            height: 50px;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            background: linear-gradient(90deg, #37a1e8, #6cc070);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite linear;
+        }
+        footer {
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: #6cc070;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Container */
+        .container {
+            max-width: 600px;
+            margin: 120px auto;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #6cc070;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #37a1e8;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus {
+            border-color: #6cc070;
+            outline: none;
+        }
+        button {
+            width: 48%;
+            padding: 12px;
+            margin: 5px 1%;
+            border-radius: 25px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        button[type="submit"] {
+            background: #37a1e8;
+            color: white;
+        }
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(55, 161, 232, 0.4);
+        }
+        button[type="button"] {
+            background: #f0f0f0;
+            color: #333;
+        }
+        button[type="button"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6cc070;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes textGlow {
+            0% {
+                background-position: 0%;
+            }
+            100% {
+                background-position: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <header>
+        <img src="https://cdn3.iconfinder.com/data/icons/smart-agriculture-farming-flat/72/Untitled-1-04-1024.png" alt="Logo" class="logo">
+        <h1>Crop Recommendation System</h1>
+    </header>
+
+    <div class="container">
+        <h1>Enter Soil and Weather Details</h1>
+        <form id="cropForm">
+            <label for="N">Nitrogen (N):</label>
+            <input type="number" id="N" name="N" required>
+            
+            <label for="P">Phosphorus (P):</label>
+            <input type="number" id="P" name="P" required>
+            
+            <label for="K">Potassium (K):</label>
+            <input type="number" id="K" name="K" required>
+            
+            <label for="temperature">Temperature (°C):</label>
+            <input type="number" id="temperature" name="temperature" step="0.01" required>
+            
+            <label for="ph">pH Level:</label>
+            <input type="number" id="ph" name="ph" step="0.01" required>
+            
+            <div>
+                <button type="submit" id="submitButton">Recommend</button>
+                <button type="button" id="resetButton">Reset</button>
+            </div>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <footer>
+        <p>Made with <i class="fas fa-heart" style="color: red;"></i> by ꄲ ꋊ ꀘ ꌦ</p>
+        
+        <p>Contact: Onkar Damale <a href="tel:7499354093">7499354093</a> | Email: <a href="mailto:onkydamale@gmail.com">onkydamale@gmail.com</a></p>
+
+    <script>
+        document.getElementById('cropForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Loading...';
+
+            let formData = {
+                N: parseFloat(document.getElementById('N').value),
+                P: parseFloat(document.getElementById('P').value),
+                K: parseFloat(document.getElementById('K').value),
+                temperature: parseFloat(document.getElementById('temperature').value),
+                ph: parseFloat(document.getElementById('ph').value),
+            };
+
+            try {
+                let response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                let result = await response.json();
+                document.getElementById('result').innerText = 'Recommended Crop: ' + result.crop;
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error fetching crop recommendation.';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Recommend';
+            }
+        });
+
+        document.getElementById('resetButton').addEventListener('click', function() {
+            document.getElementById('cropForm').reset();
+            document.getElementById('result').innerText = '';
+        });
+    </script>
+</body>
+</html>
