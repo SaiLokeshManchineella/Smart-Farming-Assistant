@@ -1,9 +1,7 @@
-```markdown
+
 # 🌾 CropMate: Smart Farming Assistant  
 
 CropMate is an AI-powered farming assistant that helps farmers make data-driven decisions for improved crop yield, resource optimization, and sustainable farming. This project integrates cutting-edge machine learning, cloud services, and modern DevOps practices for efficient and scalable operation.  
-
----
 
 ## 🚀 Features  
 - **Crop Recommendation:** Suggests optimal crops based on soil nutrients, temperature, and pH level.  
