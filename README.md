@@ -95,5 +95,3 @@ Feel free to contribute or provide feedback!
 ## 📝 License
 This project is licensed under the [MIT License](LICENSE).
 ```
-
-You can customize the contact details and GitHub repository URL as needed! Let me know if you need further edits.
