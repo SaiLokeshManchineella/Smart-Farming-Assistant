@@ -50,7 +50,8 @@ CropMate/
 ├── requirements.txt      # Python dependencies  
 └── README.md             # Project documentation  
 
----
+```
+
 
 ## 🧑‍💻 Installation & Usage
 1. Clone the repository:
