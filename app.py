@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')  # Specify the templates folder
 
 # Load the trained model
 with open('crop_recommendation_model.pkl', 'rb') as file:
